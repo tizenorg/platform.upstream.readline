@@ -440,6 +440,9 @@ _rl_internal_char_cleanup ()
     _rl_erase_entire_line ();
 }
 
+/* Catch EOF from tty, do not return command line */
+int _rl_read_zero_char_from_tty = 0;
+
 STATIC_CALLBACK int
 #if defined (READLINE_CALLBACKS)
 readline_internal_char ()
@@ -483,6 +486,10 @@ readline_internal_charloop ()
       RL_SETSTATE(RL_STATE_READCMD);
       c = rl_read_key ();
       RL_UNSETSTATE(RL_STATE_READCMD);
+
+      /* Return here if terminal is closed */
+      if (c == EOF && _rl_read_zero_char_from_tty)
+	return (rl_done = 1);
 
       /* look at input.c:rl_getc() for the circumstances under which this will
 	 be returned; punt immediately on read error without converting it to
