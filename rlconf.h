@@ -35,7 +35,7 @@
 #define HANDLE_SIGNALS
 
 /* Ugly but working hack for binding prefix meta. */
-#define PREFIX_META_HACK
+#undef PREFIX_META_HACK
 
 /* The next-to-last-ditch effort file name for a user-specific init file. */
 #define DEFAULT_INPUTRC "~/.inputrc"

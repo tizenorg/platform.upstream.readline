@@ -338,7 +338,8 @@ file is taken from the value of the environment variable @env{INPUTRC}.  If
 @end ifclear
 that variable is unset, the default is @file{~/.inputrc}.  If that
 file does not exist or cannot be read, the ultimate default is
-@file{/etc/inputrc}.
+@file{/etc/inputrc}. If both @file{~/.inputrc} and @file{/etc/inputrc}
+exist Readline will read first @file{/etc/inputrc} and then @file{~/.inputrc}.
 
 When a program which uses the Readline library starts up, the
 init file is read, and the key bindings are set.
