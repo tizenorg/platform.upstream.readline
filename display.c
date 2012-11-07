@@ -754,7 +754,10 @@ rl_redisplay ()
       inv_lbreaks[++newlines] = temp;
 #if defined (HANDLE_MULTIBYTE)
       if (MB_CUR_MAX > 1 && rl_byte_oriented == 0 && prompt_multibyte_chars > 0)
-	lpos -= _rl_col_width (local_prompt, n0, num, 1);
+	{
+	  if (local_prompt_len > 0)
+	    lpos -= _rl_col_width (local_prompt, n0, num, 1);
+	}
       else
 #endif
 	lpos -= _rl_screenwidth;
