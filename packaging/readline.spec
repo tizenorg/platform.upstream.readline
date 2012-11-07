@@ -6,7 +6,6 @@ Summary:        The Readline Library
 Url:            http://www.gnu.org/software/bash/bash.html
 Group:          System/Libraries
 Source0:        readline-%{rl_vers}.tar.bz2
-Source1:        readline-%{rl_vers}-patches.tar.bz2
 Source2:        baselibs.conf
 Patch20:        readline-%{rl_vers}.dif
 Patch21:        readline-4.3-input.dif

@@ -96,7 +96,7 @@ DIST_DOCS = $(DVIOBJ) $(PSOBJ) $(HTMLOBJ) $(INFOOBJ) $(TEXTOBJ)
 	$(RM) $@
 	-${DVIPDF} $<
 
-all: info dvi html ps text
+all: info html
 nodvi: info html text
 
 info:	$(INFOOBJ)
