@@ -802,6 +802,9 @@ rl_function_of_keyseq (keyseq, map, type)
 /* The last key bindings file read. */
 static char *last_readline_init_file = (char *)NULL;
 
+/* Flag to read system init file */
+static int read_system_init_file = 0;
+
 /* The file we're currently reading key bindings from. */
 static const char *current_readline_init_file;
 static int current_readline_init_include_level;
@@ -867,11 +870,14 @@ rl_re_read_init_file (count, ignore)
   return r;
 }
 
+/* Forward declarations */
+static int sv_bell_style PARAMS((const char *));
+
 /* Do key bindings from a file.  If FILENAME is NULL it defaults
    to the first non-null filename from this list:
      1. the filename used for the previous call
      2. the value of the shell variable `INPUTRC'
-     3. ~/.inputrc
+     3. /etc/inputrc and ~/.inputrc
      4. /etc/inputrc
    If the file existed and could be opened and read, 0 is returned,
    otherwise errno is returned. */
@@ -883,15 +889,36 @@ rl_read_init_file (filename)
   if (filename == 0)
     filename = last_readline_init_file;
   if (filename == 0)
-    filename = sh_get_env_value ("INPUTRC");
+    {
+      filename = sh_get_env_value ("INPUTRC");
+      if (filename && !strncmp(SYS_INPUTRC, filename, strlen(SYS_INPUTRC)))
+	{
+	  struct stat st;
+	  char *default_inputrc = tilde_expand(DEFAULT_INPUTRC);
+
+	  if ((stat(default_inputrc, &st) == 0))
+	    {
+	      filename = DEFAULT_INPUTRC;
+	      read_system_init_file = 1;
+	    }
+	  else
+	    read_system_init_file = 0;
+
+	  free(default_inputrc);
+	}
+      else
+	read_system_init_file = 1;
+    }
   if (filename == 0 || *filename == 0)
     {
       filename = DEFAULT_INPUTRC;
-      /* Try to read DEFAULT_INPUTRC; fall back to SYS_INPUTRC on failure */
-      if (_rl_read_init_file (filename, 0) == 0)
-	return 0;
-      filename = SYS_INPUTRC;
+      read_system_init_file = 1;
     }
+
+  sv_bell_style(sh_get_env_value("DEFAULT_BELL_STYLE"));
+
+  if (read_system_init_file)
+    _rl_read_init_file (SYS_INPUTRC, 1);
 
 #if defined (__MSDOS__)
   if (_rl_read_init_file (filename, 0) == 0)
@@ -1414,7 +1441,14 @@ remove_trailing:
 	  rl_macro_bind (seq, &funname[1], _rl_keymap);
 	}
       else
-	rl_bind_keyseq (seq, rl_named_function (funname));
+	{
+#if defined (PREFIX_META_HACK)
+	  if (_rl_stricmp (funname, "prefix-meta") == 0)
+	    rl_generic_bind (ISKMAP, seq, (char *)emacs_meta_keymap, _rl_keymap);
+	  else
+#endif
+	  rl_bind_keyseq (seq, rl_named_function (funname));
+	}
 
       xfree (seq);
       return 0;
@@ -1563,7 +1597,6 @@ typedef int _rl_sv_func_t PARAMS((const char *));
 #define V_INT		2
 
 /* Forward declarations */
-static int sv_bell_style PARAMS((const char *));
 static int sv_combegin PARAMS((const char *));
 static int sv_dispprefix PARAMS((const char *));
 static int sv_compquery PARAMS((const char *));
