@@ -817,8 +817,11 @@ _rl_dispatch_subseq (key, map, got_subseq)
 	{
 	  /* Special case rl_do_lowercase_version (). */
 	  if (func == rl_do_lowercase_version)
-	    /* Should we do anything special if key == ANYOTHERKEY? */
-	    return (_rl_dispatch (_rl_to_lower (key), map));
+	    {
+	      if (key == ANYOTHERKEY)
+		return -1;
+	      return (_rl_dispatch (_rl_to_lower (key), map));
+	    }
 
 	  rl_executing_keymap = map;
 	  rl_executing_key = key;

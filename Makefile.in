@@ -234,11 +234,11 @@ uninstall-headers:
 
 maybe-uninstall-headers: uninstall-headers
 
-install-static: installdirs $(STATIC_LIBS) install-headers install-doc install-examples
-	-$(MV) $(DESTDIR)$(libdir)/libreadline.a $(DESTDIR)$(libdir)/libreadline.old
+install:	$(INSTALL_TARGETS)
+
+install-static: installdirs $(STATIC_LIBS) install-headers install-doc
 	$(INSTALL_DATA) libreadline.a $(DESTDIR)$(libdir)/libreadline.a
 	-test -n "$(RANLIB)" && $(RANLIB) $(DESTDIR)$(libdir)/libreadline.a
-	-$(MV) $(DESTDIR)$(libdir)/libhistory.a $(DESTDIR)$(libdir)/libhistory.old
 	$(INSTALL_DATA) libhistory.a $(DESTDIR)$(libdir)/libhistory.a
 	-test -n "$(RANLIB)" && $(RANLIB) $(DESTDIR)$(libdir)/libhistory.a
 
@@ -268,7 +268,7 @@ install-doc:	installdirs
 	$(INSTALL_DATA) $(OTHER_DOCS) $(DESTDIR)$(docdir)
 	-( if test -d doc ; then \
 		cd doc && \
-		${MAKE} ${MFLAGS} infodir=$(infodir) DESTDIR=${DESTDIR} install; \
+		${MAKE} infodir=$(infodir) DESTDIR=${DESTDIR} install; \
 	  fi )
 
 uninstall-doc:
