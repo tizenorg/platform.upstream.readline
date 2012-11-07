@@ -7,11 +7,6 @@ Url:            http://www.gnu.org/software/bash/bash.html
 Group:          System/Libraries
 Source0:        readline-%{rl_vers}.tar.bz2
 Source2:        baselibs.conf
-Patch20:        readline-%{rl_vers}.dif
-Patch21:        readline-4.3-input.dif
-Patch22:        readline-5.2-wrap.patch
-Patch23:        readline-5.2-conf.patch
-Patch30:        readline-5.1-destdir.patch
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -50,16 +45,6 @@ includes history and search functionality.
 
 %prep
 %setup -q -n readline-%{rl_vers}
-for p in ../readline-%{rl_vers}-patches/*; do
-    test -e $p || break
-    echo Patch $p
-    patch -s -p0 < $p
-done
-%patch21 -p0 -b .zerotty
-%patch22 -p0 -b .wrap
-%patch23 -p0 -b .conf
-%patch30 -p0 -b .destdir
-%patch20 -p0
 
 %build
   autoconf
