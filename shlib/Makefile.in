@@ -57,6 +57,7 @@ bindir = @bindir@
 libdir = @libdir@
 datadir = @datadir@
 localedir = $(datadir)/locale
+linkagedir = $(libdir)
 
 # Support an alternate destination root directory for package building
 DESTDIR =
@@ -181,13 +182,13 @@ installdirs: $(topdir)/support/mkdirs
 	-$(SHELL) $(topdir)/support/mkdirs $(DESTDIR)$(libdir)
 
 install: installdirs $(SHLIB_STATUS)
-	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -d $(DESTDIR)$(libdir) -b $(DESTDIR)$(bindir) -i "$(INSTALL_DATA)" $(SHARED_HISTORY)
-	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -d $(DESTDIR)$(libdir) -b $(DESTDIR)$(bindir) -i "$(INSTALL_DATA)" $(SHARED_READLINE)
+	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -dd $(DESTDIR) -d $(libdir) -l $(linkagedir) -b $(bindir) -i "$(INSTALL_DATA)" $(SHARED_HISTORY)
+	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -dd $(DESTDIR) -d $(libdir) -l $(linkagedir) -b $(bindir) -i "$(INSTALL_DATA)" $(SHARED_READLINE)
 	@echo install: you may need to run ldconfig
 
 uninstall:
-	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -d $(DESTDIR)$(libdir) -b $(DESTDIR)$(bindir) -U $(SHARED_HISTORY)
-	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -d $(DESTDIR)$(libdir) -b $(DESTDIR)$(bindir) -U $(SHARED_READLINE)
+	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -dd $(DESTDIR) -d $(libdir) -l $(linkagedir) -b $(bindir) -U $(SHARED_HISTORY)
+	$(SHELL) $(topdir)/support/shlib-install -O $(host_os) -dd $(DESTDIR) -d $(libdir) -l $(linkagedir) -b $(bindir) -U $(SHARED_READLINE)
 	@echo uninstall: you may need to run ldconfig
 
 clean mostlyclean:	force
