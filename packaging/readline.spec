@@ -1,3 +1,4 @@
+%define rl_vers  5.2
 Name:           readline
 Version:        5.2
 Release:        0
@@ -5,14 +6,13 @@ License:        GPL-2.0+
 Summary:        The Readline Library
 Url:            http://www.gnu.org/software/bash/bash.html
 Group:          System/Libraries
-Source0:        readline-%{rl_vers}.tar.bz2
+Source0:        readline-%{version}.tar.bz2
 Source2:        baselibs.conf
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  ncurses-devel
-%define         rl_vers   5.2
-Provides:       bash:/%{_lib}/libreadline.so.5
+Provides:       bash:/%{_libdir}/libreadline.so.5
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
@@ -44,7 +44,7 @@ standard command interpreter) for easy editing of command lines.  This
 includes history and search functionality.
 
 %prep
-%setup -q -n readline-%{rl_vers}
+%setup -q -n readline-%{version}
 
 %build
   autoconf
@@ -97,16 +97,16 @@ includes history and search functionality.
 
 %install
   make install htmldir=%{_defaultdocdir}/readline DESTDIR=%{buildroot}
-  make install-shared libdir=/%{_lib} linkagedir=%{_libdir} DESTDIR=%{buildroot}
+  make install-shared libdir=/%{_libdir} linkagedir=%{_libdir} DESTDIR=%{buildroot}
   rm -rf %{buildroot}%{_defaultdocdir}/bash
   rm -rf %{buildroot}%{_defaultdocdir}/readline
-  chmod 0755 %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}
-  chmod 0755 %{buildroot}/%{_lib}/libreadline.so.%{rl_vers}
-  rm -f %{buildroot}/%{_lib}/libhistory.so.%{rl_vers}*old
-  rm -f %{buildroot}/%{_lib}/libreadline.so.%{rl_vers}*old
+  chmod 0755 %{buildroot}/%{_libdir}/libhistory.so.%{rl_vers}
+  chmod 0755 %{buildroot}/%{_libdir}/libreadline.so.%{rl_vers}
+  rm -f %{buildroot}/%{_libdir}/libhistory.so.%{rl_vers}*old
+  rm -f %{buildroot}/%{_libdir}/libreadline.so.%{rl_vers}*old
   # remove unpackaged files
-  rm -fv %{buildroot}%{_libdir}/libhistory.so.*
-  rm -fv %{buildroot}%{_libdir}/libreadline.so.*
+  #rm -fv %{buildroot}%{_libdir}/libhistory.so.*
+  #rm -fv %{buildroot}%{_libdir}/libreadline.so.*
   rm -fv %{buildroot}%{_mandir}/man3/history.3*
   rm -fv %{buildroot}%{_infodir}/*.info*
 
@@ -117,10 +117,10 @@ includes history and search functionality.
 
 %files -n libreadline
 %defattr(-,root,root)
-/%{_lib}/libhistory.so.5
-/%{_lib}/libhistory.so.%{rl_vers}
-/%{_lib}/libreadline.so.5
-/%{_lib}/libreadline.so.%{rl_vers}
+%{_libdir}/libhistory.so.5
+%{_libdir}/libhistory.so.%{rl_vers}
+%{_libdir}/libreadline.so.5
+%{_libdir}/libreadline.so.%{rl_vers}
 
 %files devel
 %defattr(-,root,root)
