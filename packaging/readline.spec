@@ -82,7 +82,7 @@ includes history and search functionality.
   CFLAGS_FOR_BUILD="$CFLAGS"
   LDFLAGS_FOR_BUILD="$LDFLAGS"
   export CC_FOR_BUILD CFLAGS_FOR_BUILD LDFLAGS_FOR_BUILD CFLAGS LDFLAGS CC
-  ./configure --build=%{_target_cpu}-suse-linux	\
+  ./configure --build=%{_target_cpu}-tizen-linux	\
 	--prefix=%{_prefix}			\
 	--with-curses			\
 	--mandir=%{_mandir}		\
