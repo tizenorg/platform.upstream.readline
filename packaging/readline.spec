@@ -5,7 +5,7 @@ Release:        0
 License:        GPL-2.0+
 Summary:        The Readline Library
 Url:            http://www.gnu.org/software/bash/bash.html
-Group:          System/Libraries
+Group:          Base/Libraries
 Source0:        readline-%{version}.tar.bz2
 Source2:        baselibs.conf
 BuildRequires:  autoconf
@@ -13,7 +13,6 @@ BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  ncurses-devel
 Provides:       bash:/%{_libdir}/libreadline.so.5
-BuildRoot:      %{_tmppath}/%{name}-%{version}-build
 %global         _sysconfdir /etc
 %global         _incdir     %{_includedir}
 
@@ -26,7 +25,7 @@ includes history and search functionality.
 Version:        5.2
 Release:        0
 Summary:        Include Files and Libraries mandatory for Development
-Group:          Development/Libraries/C and C++
+Group:          Development/Libraries
 Requires:       libreadline = %{version}
 Requires:       ncurses-devel
 Provides:       bash:%{_libdir}/libreadline.a
@@ -117,6 +116,7 @@ includes history and search functionality.
 
 %files -n libreadline
 %defattr(-,root,root)
+%license COPYING
 %{_libdir}/libhistory.so.5
 %{_libdir}/libhistory.so.%{rl_vers}
 %{_libdir}/libreadline.so.5
