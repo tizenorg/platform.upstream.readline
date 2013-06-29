@@ -8,6 +8,7 @@ Url:            http://www.gnu.org/software/bash/bash.html
 Group:          Base/Libraries
 Source0:        readline-%{version}.tar.bz2
 Source2:        baselibs.conf
+Source1001: 	readline.manifest
 BuildRequires:  autoconf
 BuildRequires:  bison
 BuildRequires:  fdupes
@@ -44,6 +45,7 @@ includes history and search functionality.
 
 %prep
 %setup -q -n readline-%{version}
+cp %{SOURCE1001} .
 
 %build
   autoconf
@@ -115,6 +117,7 @@ includes history and search functionality.
 
 
 %files -n libreadline
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %license COPYING
 %{_libdir}/libhistory.so.5
@@ -123,6 +126,7 @@ includes history and search functionality.
 %{_libdir}/libreadline.so.%{rl_vers}
 
 %files devel
+%manifest %{name}.manifest
 %defattr(-,root,root)
 %{_incdir}/readline/
 %{_libdir}/libhistory.a
