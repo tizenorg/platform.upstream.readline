@@ -37,6 +37,7 @@ to develop applications that require these.
 
 %package -n libreadline
 Summary:        The Readline Library
+Provides: readline = %{version}-%{release}
 
 %description -n libreadline
 The readline library is used by the Bourne Again Shell (bash, the
