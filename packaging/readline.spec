@@ -1,6 +1,5 @@
-%define rl_vers  5.2
 Name:           readline
-Version:        5.2
+Version:        6.3
 Release:        0
 License:        GPL-2.0+
 Summary:        The Readline Library
@@ -14,8 +13,6 @@ BuildRequires:  bison
 BuildRequires:  fdupes
 BuildRequires:  ncurses-devel
 Provides:       bash:/%{_libdir}/libreadline.so.5
-%global         _sysconfdir /etc
-%global         _incdir     %{_includedir}
 
 %description
 The readline library is used by the Bourne Again Shell (bash, the
@@ -23,7 +20,7 @@ standard command interpreter) for easy editing of command lines.  This
 includes history and search functionality.
 
 %package devel
-Version:        5.2
+Version:        6.3
 Release:        0
 Summary:        Include Files and Libraries mandatory for Development
 Group:          Development/Libraries
@@ -91,25 +88,30 @@ cp %{SOURCE1001} .
 	--libdir=%{_libdir}
   make
   make documentation
-  ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so
-  ln -sf shlib/libreadline.so.%{rl_vers} libreadline.so.5
-  ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so
-  ln -sf shlib/libhistory.so.%{rl_vers} libhistory.so.5
+  ln -sf shlib/libreadline.so.%{version} libreadline.so
+  ln -sf shlib/libreadline.so.%{version} libreadline.so.6
+  ln -sf shlib/libhistory.so.%{version} libhistory.so
+  ln -sf shlib/libhistory.so.%{version} libhistory.so.6
 
 %install
   make install htmldir=%{_defaultdocdir}/readline DESTDIR=%{buildroot}
   make install-shared libdir=/%{_libdir} linkagedir=%{_libdir} DESTDIR=%{buildroot}
   rm -rf %{buildroot}%{_defaultdocdir}/bash
   rm -rf %{buildroot}%{_defaultdocdir}/readline
-  chmod 0755 %{buildroot}/%{_libdir}/libhistory.so.%{rl_vers}
-  chmod 0755 %{buildroot}/%{_libdir}/libreadline.so.%{rl_vers}
-  rm -f %{buildroot}/%{_libdir}/libhistory.so.%{rl_vers}*old
-  rm -f %{buildroot}/%{_libdir}/libreadline.so.%{rl_vers}*old
+  chmod 0755 %{buildroot}/%{_libdir}/libhistory.so.%{version}
+  chmod 0755 %{buildroot}/%{_libdir}/libreadline.so.%{version}
+  rm -f %{buildroot}/%{_libdir}/libhistory.so.%{version}*old
+  rm -f %{buildroot}/%{_libdir}/libreadline.so.%{version}*old
   # remove unpackaged files
-  #rm -fv %{buildroot}%{_libdir}/libhistory.so.*
-  #rm -fv %{buildroot}%{_libdir}/libreadline.so.*
+  #rm -fv %%{buildroot}%%{_libdir}/libhistory.so.*
+  #rm -fv %%{buildroot}%%{_libdir}/libreadline.so.*
   rm -fv %{buildroot}%{_mandir}/man3/history.3*
   rm -fv %{buildroot}%{_infodir}/*.info*
+  # The correct place for the following files is /usr/share/doc/packages/%%{name} and they are
+  # managed by the %%doc rpm macro so delete them from the buildroot:
+  rm -f %{buildroot}%{_datadir}/doc/%{name}/CHANGES \
+        %{buildroot}%{_datadir}/doc/%{name}/README \
+        %{buildroot}%{_datadir}/doc/%{name}/INSTALL
 
 %post -n libreadline -p /sbin/ldconfig
 
@@ -120,19 +122,19 @@ cp %{SOURCE1001} .
 %manifest %{name}.manifest
 %defattr(-,root,root)
 %license COPYING
-%{_libdir}/libhistory.so.5
-%{_libdir}/libhistory.so.%{rl_vers}
-%{_libdir}/libreadline.so.5
-%{_libdir}/libreadline.so.%{rl_vers}
+%{_libdir}/libhistory.so.6
+%{_libdir}/libhistory.so.%{version}
+%{_libdir}/libreadline.so.6
+%{_libdir}/libreadline.so.%{version}
 
 %files devel
 %manifest %{name}.manifest
 %defattr(-,root,root)
-%{_incdir}/readline/
+%{_includedir}/readline/
 %{_libdir}/libhistory.a
 %{_libdir}/libhistory.so
 %{_libdir}/libreadline.a
 %{_libdir}/libreadline.so
 %doc %{_mandir}/man3/readline.3.gz
+%doc CHANGES README
 
-%changelog
