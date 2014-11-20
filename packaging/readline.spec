@@ -112,6 +112,9 @@ rm -fv %{buildroot}%{_infodir}/*.info*
 rm -f %{buildroot}%{_datadir}/doc/%{name}/CHANGES \
     %{buildroot}%{_datadir}/doc/%{name}/README \
     %{buildroot}%{_datadir}/doc/%{name}/INSTALL
+# Remove examples
+rm -rf %{buildroot}%{_datadir}/%{name}
+
 
 %post -n libreadline -p /sbin/ldconfig
 
