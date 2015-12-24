@@ -2,7 +2,7 @@
 Name:           readline
 Version:        5.2
 Release:        0
-License:        GPL-2.0+
+License:        GPL-2.0
 Summary:        The Readline Library
 Url:            http://www.gnu.org/software/bash/bash.html
 Group:          Base/Libraries
