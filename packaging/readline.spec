@@ -48,6 +48,9 @@ includes history and search functionality.
 cp %{SOURCE1001} .
 
 %build
+export CFLAGS+=" -fvisibility=hidden"
+  export CXXFLAGS+=" -fvisibility=hidden"
+  
   autoconf
   cflags ()
   {

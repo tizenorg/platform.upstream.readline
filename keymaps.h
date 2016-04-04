@@ -66,35 +66,35 @@ typedef KEYMAP_ENTRY *Keymap;
 #define ISKMAP 1
 #define ISMACR 2
 
-extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap, emacs_ctlx_keymap;
-extern KEYMAP_ENTRY_ARRAY vi_insertion_keymap, vi_movement_keymap;
+__attribute__ ((visibility ("default"))) __attribute__ ((visibility ("default"))) __attribute__ ((visibility ("default"))) extern KEYMAP_ENTRY_ARRAY emacs_standard_keymap, emacs_meta_keymap, emacs_ctlx_keymap;
+__attribute__ ((visibility ("default"))) __attribute__ ((visibility ("default"))) extern KEYMAP_ENTRY_ARRAY vi_insertion_keymap, vi_movement_keymap;
 
 /* Return a new, empty keymap.
    Free it with free() when you are done. */
-extern Keymap rl_make_bare_keymap PARAMS((void));
+__attribute__ ((visibility ("default"))) extern Keymap rl_make_bare_keymap PARAMS((void));
 
 /* Return a new keymap which is a copy of MAP. */
-extern Keymap rl_copy_keymap PARAMS((Keymap));
+__attribute__ ((visibility ("default"))) extern Keymap rl_copy_keymap PARAMS((Keymap));
 
 /* Return a new keymap with the printing characters bound to rl_insert,
    the lowercase Meta characters bound to run their equivalents, and
    the Meta digits bound to produce numeric arguments. */
-extern Keymap rl_make_keymap PARAMS((void));
+__attribute__ ((visibility ("default"))) extern Keymap rl_make_keymap PARAMS((void));
 
 /* Free the storage associated with a keymap. */
-extern void rl_discard_keymap PARAMS((Keymap));
+__attribute__ ((visibility ("default"))) extern void rl_discard_keymap PARAMS((Keymap));
 
 /* These functions actually appear in bind.c */
 
 /* Return the keymap corresponding to a given name.  Names look like
    `emacs' or `emacs-meta' or `vi-insert'.  */
-extern Keymap rl_get_keymap_by_name PARAMS((const char *));
+__attribute__ ((visibility ("default"))) extern Keymap rl_get_keymap_by_name PARAMS((const char *));
 
 /* Return the current keymap. */
-extern Keymap rl_get_keymap PARAMS((void));
+__attribute__ ((visibility ("default"))) extern Keymap rl_get_keymap PARAMS((void));
 
 /* Set the current keymap to MAP. */
-extern void rl_set_keymap PARAMS((Keymap));
+__attribute__ ((visibility ("default"))) extern void rl_set_keymap PARAMS((Keymap));
 
 #ifdef __cplusplus
 }
