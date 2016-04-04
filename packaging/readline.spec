@@ -81,6 +81,8 @@ export CFLAGS+=" -fvisibility=hidden"
   cflags -pipe                   CFLAGS
   cflags -Wl,--as-needed         LDFLAGS
   cflags -Wl,-O,2                LDFLAGS
+export CFLAGS+=" -fvisibility=hidden"
+  export CXXFLAGS+=" -fvisibility=hidden"
   CC=gcc
   CC_FOR_BUILD="$CC"
   CFLAGS_FOR_BUILD="$CFLAGS"
