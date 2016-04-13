@@ -67,7 +67,7 @@ cp %{SOURCE1001} .
       LARGEFILE="-D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
   fi
   rm -f ./test64
-  CFLAGS="%{optflags} $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g"
+  CFLAGS="%{optflags} $LARGEFILE -D_GNU_SOURCE -DRECYCLES_PIDS -Wall -g -fvisibility=hidden"
   LDFLAGS=""
   cflags -std=gnu89              CFLAGS
   cflags -Wuninitialized         CFLAGS

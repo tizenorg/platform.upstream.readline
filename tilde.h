@@ -46,33 +46,33 @@ typedef char *tilde_hook_func_t PARAMS((char *));
    wants called before trying the standard tilde expansions.  The function
    is called with the text sans tilde, and returns a malloc()'ed string
    which is the expansion, or a NULL pointer if the expansion fails. */
-extern tilde_hook_func_t *tilde_expansion_preexpansion_hook;
+__attribute__ ((visibility("default"))) extern tilde_hook_func_t *tilde_expansion_preexpansion_hook;
 
 /* If non-null, this contains the address of a function to call if the
    standard meaning for expanding a tilde fails.  The function is called
    with the text (sans tilde, as in "foo"), and returns a malloc()'ed string
    which is the expansion, or a NULL pointer if there is no expansion. */
-extern tilde_hook_func_t *tilde_expansion_failure_hook;
+__attribute__ ((visibility("default"))) extern tilde_hook_func_t *tilde_expansion_failure_hook;
 
 /* When non-null, this is a NULL terminated array of strings which
    are duplicates for a tilde prefix.  Bash uses this to expand
    `=~' and `:~'. */
-extern char **tilde_additional_prefixes;
+__attribute__ ((visibility("default"))) extern char **tilde_additional_prefixes;
 
 /* When non-null, this is a NULL terminated array of strings which match
    the end of a username, instead of just "/".  Bash sets this to
    `:' and `=~'. */
-extern char **tilde_additional_suffixes;
+__attribute__ ((visibility("default"))) extern char **tilde_additional_suffixes;
 
 /* Return a new string which is the result of tilde expanding STRING. */
-extern char *tilde_expand PARAMS((const char *));
+__attribute__ ((visibility("default"))) extern char *tilde_expand PARAMS((const char *));
 
 /* Do the work of tilde expansion on FILENAME.  FILENAME starts with a
    tilde.  If there is no expansion, call tilde_expansion_failure_hook. */
-extern char *tilde_expand_word PARAMS((const char *));
+__attribute__ ((visibility("default"))) extern char *tilde_expand_word PARAMS((const char *));
 
 /* Find the portion of the string beginning with ~ that should be expanded. */
-extern char *tilde_find_word PARAMS((const char *, int, int *));
+__attribute__ ((visibility("default"))) extern char *tilde_find_word PARAMS((const char *, int, int *));
 
 #ifdef __cplusplus
 }
